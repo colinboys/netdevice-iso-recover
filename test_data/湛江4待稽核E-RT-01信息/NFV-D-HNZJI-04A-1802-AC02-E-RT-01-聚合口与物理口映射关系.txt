@@ -1,0 +1,215 @@
+﻿<NFV-D-HNZJI-04A-1802-AC02-E-RT-01>display  link-aggregation verbose 
+Loadsharing Type: Shar -- Loadsharing, NonS -- Non-Loadsharing 
+Port Status: S -- Selected, U -- Unselected, I -- Individual 
+Port: A -- Auto
+Flags:  A -- LACP_Activity, B -- LACP_Timeout, C -- Aggregation, 
+        D -- Synchronization, E -- Collecting, F -- Distributing,  
+        G -- Defaulted, H -- Expired
+Role: P -- Primary, S -- Secondary
+
+Aggregate Interface: Bridge-Aggregation161
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/1/19           S        32768    35       1                      {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/1/19           32768    0        33       0x8000, 0024-ac96-7e22 {ACDEF}
+
+Aggregate Interface: Bridge-Aggregation162
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE7/1/20           U        32768    23       3                      {ABCG}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE7/1/20           32768    0        0        0x8000, 0000-0000-0000 {DEF}
+               
+Aggregate Interface: Route-Aggregation1
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  HGE2/0/1            S        32768    2        13                     {ABCDEF}
+  HGE3/0/1            S        32768    14       13                     {ABCDEF}
+  HGE4/0/1            S        32768    8        13                     {ABCDEF}
+  HGE5/0/1            S        32768    5        13                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  HGE2/0/1            32768    10       7        0x8000, 4873-97f2-6800 {ABCDEF}
+  HGE3/0/1            32768    6        7        0x8000, 4873-97f2-6800 {ABCDEF}
+  HGE4/0/1            32768    15       7        0x8000, 4873-97f2-6800 {ABCDEF}
+  HGE5/0/1            32768    1        7        0x8000, 4873-97f2-6800 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation2
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/2/1            S        32768    31       4                      {ABCDEF}
+  XGE7/2/1            S        32768    19       4                      {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/2/1            32768    19       4        0x8000, 4873-97f2-6800 {ABCDEF}
+  XGE7/2/1            32768    27       4        0x8000, 4873-97f2-6800 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation3
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  HGE2/0/2            S        32768    3        16                     {ABCDEF}
+  HGE3/0/2            S        32768    15       16                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  HGE2/0/2            32768    8271     2827     0x8000, d4c1-c893-5a70 {ABCDEF}
+  HGE3/0/2            32768    8308     2827     0x8000, d4c1-c893-5a70 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation5
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/2/2            S        32768    32       5                      {ABCDEF}
+  XGE6/2/3            S        32768    38       5                      {ABCDEF}
+  XGE6/2/4            S        32768    42       5                      {ABCDEF}
+  XGE7/2/2            S        32768    20       5                      {ABCDEF}
+  XGE7/2/3            S        32768    25       5                      {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/2/2            32768    294      2        0x8000, 6ce2-d32e-e800 {ABCDEF}
+  XGE6/2/3            32768    295      2        0x8000, 6ce2-d32e-e800 {ABCDEF}
+  XGE6/2/4            32768    296      2        0x8000, 6ce2-d32e-e800 {ABCDEF}
+  XGE7/2/2            32768    200      2        0x8000, 6ce2-d32e-e800 {ABCDEF}
+  XGE7/2/3            32768    201      2        0x8000, 6ce2-d32e-e800 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation6
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/2/5            S        32768    33       10                     {ABCDEF}
+  XGE6/2/6            S        32768    39       10                     {ABCDEF}
+  XGE6/2/7            S        32768    43       10                     {ABCDEF}
+  XGE7/2/4            S        32768    21       10                     {ABCDEF}
+  XGE7/2/5            S        32768    26       10                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/2/5            32768    294      2        0x8000, 6ce2-d32e-e600 {ABCDEF}
+  XGE6/2/6            32768    295      2        0x8000, 6ce2-d32e-e600 {ABCDEF}
+  XGE6/2/7            32768    296      2        0x8000, 6ce2-d32e-e600 {ABCDEF}
+  XGE7/2/4            32768    200      2        0x8000, 6ce2-d32e-e600 {ABCDEF}
+  XGE7/2/5            32768    201      2        0x8000, 6ce2-d32e-e600 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation11
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  HGE2/0/3            S        32768    7        15                     {ABCDEF}
+  HGE2/0/4            S        32768    4        15                     {ABCDEF}
+  HGE3/0/3            S        32768    16       15                     {ABCDEF}
+  HGE3/0/4            S        32768    18       15                     {ABCDEF}
+  HGE4/0/2            S        32768    12       15                     {ABCDEF}
+  HGE4/0/3            S        32768    13       15                     {ABCDEF}
+  HGE5/0/2            S        32768    10       15                     {ABCDEF}
+  HGE5/0/3            S        32768    11       15                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  HGE2/0/3            32768    16397    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE2/0/4            32768    32819    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE3/0/3            32768    16461    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE3/0/4            32768    32832    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE4/0/2            32768    16421    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE4/0/3            32768    32798    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE5/0/2            32768    16447    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+  HGE5/0/3            32768    32779    40003    0xa   , 0000-5e02-f001 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation16
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/1/10           S        32768    37       14                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/1/10           32768    9        3649     0x8000, e8a6-60fc-7210 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation151
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  HGE2/0/5            S        32768    1        12                     {ABCDEF}
+  HGE3/0/5            S        32768    17       12                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  HGE2/0/5            32768    4        849      0x8000, b076-1be2-ae01 {ABCDEF}
+  HGE3/0/5            32768    3        849      0x8000, b076-1be2-ae01 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation152
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  HGE4/0/4            S        32768    9        2                      {ABCDEF}
+  HGE5/0/4            S        32768    6        2                      {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  HGE4/0/4            32768    4        849      0x8000, b076-1bfa-0c01 {ABCDEF}
+  HGE5/0/4            32768    3        849      0x8000, b076-1bfa-0c01 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation191
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/2/10           S        32768    34       17                     {ABCDEF}
+  XGE6/2/11           S        32768    40       17                     {ABCDEF}
+  XGE6/2/12           S        32768    44       17                     {ABCDEF}
+  XGE7/2/8            S        32768    22       17                     {ABCDEF}
+  XGE7/2/9            S        32768    27       17                     {ABCDEF}
+  XGE7/2/10           S        32768    30       17                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/2/10           32768    13       1        0x8000, 04a9-592e-f8e0 {ABCDEF}
+  XGE6/2/11           32768    14       1        0x8000, 04a9-592e-f8e0 {ABCDEF}
+  XGE6/2/12           32768    15       1        0x8000, 04a9-592e-f8e0 {ABCDEF}
+  XGE7/2/8            32768    19       1        0x8000, 04a9-592e-f8e0 {ABCDEF}
+  XGE7/2/9            32768    20       1        0x8000, 04a9-592e-f8e0 {ABCDEF}
+  XGE7/2/10           32768    21       1        0x8000, 04a9-592e-f8e0 {ABCDEF}
+
+Aggregate Interface: Route-Aggregation192
+Aggregation Mode: Dynamic
+Loadsharing Type: Shar
+System ID: 0x8000, 30b0-37ff-0000
+Local: 
+  Port                Status   Priority Index    Oper-Key               Flag
+  XGE6/2/13           S        32768    36       18                     {ABCDEF}
+  XGE6/2/14           S        32768    41       18                     {ABCDEF}
+  XGE6/2/15           S        32768    45       18                     {ABCDEF}
+  XGE7/2/11           S        32768    24       18                     {ABCDEF}
+  XGE7/2/12           S        32768    28       18                     {ABCDEF}
+  XGE7/2/13           S        32768    29       18                     {ABCDEF}
+Remote: 
+  Actor               Priority Index    Oper-Key SystemID               Flag   
+  XGE6/2/13           32768    13       1        0x8000, 04a9-592e-d758 {ABCDEF}
+  XGE6/2/14           32768    14       1        0x8000, 04a9-592e-d758 {ABCDEF}
+  XGE6/2/15           32768    15       1        0x8000, 04a9-592e-d758 {ABCDEF}
+  XGE7/2/11           32768    19       1        0x8000, 04a9-592e-d758 {ABCDEF}
+  XGE7/2/12           32768    20       1        0x8000, 04a9-592e-d758 {ABCDEF}
+  XGE7/2/13           32768    21       1        0x8000, 04a9-592e-d758 {ABCDEF}

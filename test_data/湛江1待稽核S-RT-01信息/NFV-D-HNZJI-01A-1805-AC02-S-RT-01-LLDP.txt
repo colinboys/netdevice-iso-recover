@@ -1,0 +1,36 @@
+﻿Local Intf                     Neighbor Dev         Neighbor Intf        Exptime (sec)
+--------------------------------------------------------------------------------------
+50|100GE1/0/0                  GDZJI-NETCN01-CE03-ZTEM60008S cgei-0/0/0/2                   106
+50|100GE1/0/2                  NFV-D-HNZJI-01A-1805-AC08-S-FW-01 100GE5/0/0                     102
+50|100GE1/0/4                  NFV-D-HNZJI-01A-1805-AC05-S-EOR-01 cgei-0/3/0/29                   99
+50|100GE1/0/6                  NFV-D-HNZJI-01A-1805-AC05-S-EOR-01 cgei-0/3/0/30                   99
+50|100GE1/1/0                  NFV-D-HNZJI-01A-1805-AD02-S-RT-02 50|100GE1/1/0                  119
+50|100GE1/1/2                  NFV-D-HNZJI-01A-1805-AD09-S-FW-02 100GE5/0/0                      99
+50|100GE1/1/4                  NFV-D-HNZJI-01A-1805-AD06-S-EOR-02 cgei-0/3/0/29                   99
+50|100GE1/1/6                  NFV-D-HNZJI-01A-1805-AD06-S-EOR-02 cgei-0/3/0/30                   99
+50|100GE2/0/0                  GDZJI-NETCN01-CE03-ZTEM60008S cgei-0/1/0/2                   119
+50|100GE2/0/2                  NFV-D-HNZJI-01A-1805-AC08-S-FW-01 100GE6/0/0                     103
+50|100GE2/0/4                  NFV-D-HNZJI-01A-1805-AC05-S-EOR-01 cgei-0/4/0/29                   94
+50|100GE2/0/6                  NFV-D-HNZJI-01A-1805-AC05-S-EOR-01 cgei-0/4/0/30                   94
+50|100GE2/1/0                  NFV-D-HNZJI-01A-1805-AD02-S-RT-02 50|100GE2/1/0                  106
+50|100GE2/1/2                  NFV-D-HNZJI-01A-1805-AD09-S-FW-02 100GE6/0/0                     100
+50|100GE2/1/4                  NFV-D-HNZJI-01A-1805-AD06-S-EOR-02 cgei-0/4/0/29                  113
+50|100GE2/1/6                  NFV-D-HNZJI-01A-1805-AD06-S-EOR-02 cgei-0/4/0/30                  113
+50|100GE3/0/0                  NFV-D-HNZJI-01A-1805-AD02-S-RT-02 50|100GE3/0/0                  102
+50|100GE3/1/0                  NFV-D-HNZJI-01A-1805-AD02-S-RT-02 50|100GE3/1/0                  105
+GigabitEthernet4/0/0           GDZJI-NETBOSS-CE01-ZTEM60008S xgei-0/0/0/4                   100
+GigabitEthernet4/0/1           NFV-D-HNZJI-01A-1805-AC03-S-FW-01 10GE2/0/7                      100
+GigabitEthernet4/0/2           NFV-D-HNZJI-01A-1805-AC03-S-FW-01 10GE2/0/8                      100
+GigabitEthernet4/0/3           NFV-D-HNZJI-01A-1805-AD04-S-FW-02 10GE2/0/7                      115
+GigabitEthernet4/0/4           NFV-D-HNZJI-01A-1805-AD04-S-FW-02 10GE2/0/8                      115
+GigabitEthernet4/0/5           NFV-D-HNZJI-01A-1805-AC09-M-EOR-01 xgei-0/7/0/45                  103
+GigabitEthernet4/0/6           WTT5GA-ZJI-YDSJZX-SW6250-001/002 TenGigabitEthernet 1/0/1       111
+GigabitEthernet4/0/11          NFV-D-HNZJI-01A-1805-AC03-S-FW-01 10GE2/0/13                     101
+GigabitEthernet5/0/0           GDZJI-NETBOSS-CE01-ZTEM60008S xgei-0/1/0/4                   109
+GigabitEthernet5/0/1           NFV-D-HNZJI-01A-1805-AC03-S-FW-01 10GE3/0/7                       98
+GigabitEthernet5/0/2           NFV-D-HNZJI-01A-1805-AC03-S-FW-01 10GE3/0/8                       98
+GigabitEthernet5/0/3           NFV-D-HNZJI-01A-1805-AD04-S-FW-02 10GE3/0/7                      114
+GigabitEthernet5/0/4           NFV-D-HNZJI-01A-1805-AD04-S-FW-02 10GE3/0/8                      114
+GigabitEthernet5/0/5           NFV-D-HNZJI-01A-1805-AC09-M-EOR-01 xgei-0/8/0/45                   90
+GigabitEthernet5/0/6           GDZJI-NETCN01-CE03-ZTEM60008S xgei-0/1/1/12                  120
+GigabitEthernet5/0/11          NFV-D-HNZJI-01A-1805-AD04-S-FW-02 10GE2/0/13                     114

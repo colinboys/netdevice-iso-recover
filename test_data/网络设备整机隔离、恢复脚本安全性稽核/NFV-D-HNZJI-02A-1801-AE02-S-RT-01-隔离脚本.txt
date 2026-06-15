@@ -1,0 +1,103 @@
+//关闭上行接口
+system-view
+interface Eth-trunk 2
+shutdown
+#
+interface Eth-trunk 3
+shutdown
+#
+interface Eth-trunk 4
+shutdown
+#
+interface Eth-trunk 7
+shutdown
+#
+interface Eth-trunk 8
+shutdown
+#
+interface Eth-trunk 9
+shutdown
+#
+interface Eth-trunk 12
+shutdown
+#
+interface Eth-trunk 13
+shutdown
+#
+interface Eth-trunk 14
+shutdown
+#
+interface Eth-trunk 15
+shutdown
+#
+
+interface Eth-trunk 16
+shutdown
+#
+interface GigabitEthernet4/0/6
+shutdown
+commit
+interface Eth-trunk 6
+shutdown
+#
+commit
+interface Eth-trunk 5
+shutdown
+#
+#
+
+interface Eth-trunk 21
+shutdown
+#
+commit
+
+interface Eth-trunk 20
+shutdown
+#
+
+interface Eth-trunk 152
+shutdown
+#
+commit
+
+interface Eth-trunk 151
+shutdown
+#
+commit
+
+//关闭下行接口
+interface 50|100GE1/0/4
+shutdown
+#
+interface 50|100GE1/0/6
+shutdown
+#
+interface 50|100GE1/1/4
+shutdown
+#
+interface 50|100GE1/1/6
+shutdown
+#
+interface 50|100GE2/0/4
+shutdown
+#
+interface 50|100GE2/0/6
+shutdown
+#
+interface 50|100GE2/1/4
+shutdown
+#
+interface 50|100GE2/1/6
+shutdown
+#
+commit
+
+//关闭互联接口
+interface Eth-trunk 1
+shutdown
+#
+commit
+quit
+save
+y
+
