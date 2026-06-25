@@ -3,8 +3,9 @@
 
 支持的厂家：
   - huawei（默认；VRP V800，display interface brief）
+  - h3c（Comware V7，display link-aggregation verbose）
 
-中兴、华三、锐捷为占位。
+中兴、锐捷为占位。
 
 输出：JSON 对象
   {
@@ -190,7 +191,7 @@ def parse_link_aggregation_verbose(text: str) -> Dict[str, object]:
 
 def parse_trunks(text: str, vendor: str) -> Dict[str, object]:
     vendor = vendor.lower()
-    if vendor == "huawei":
+    if vendor in ("huawei", "h3c"):
         return parse_huawei(text)
     raise NotImplementedError(
         f"厂商 {vendor!r} 的聚合口解析尚未实现，请先在 references/parser-{vendor}.md 补充样例。"

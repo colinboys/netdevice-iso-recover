@@ -40,7 +40,7 @@ from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from parse_lldp import parse_lldp  # noqa: E402
 from parse_trunks import parse_trunks  # noqa: E402
-from parse_script import parse_script  # noqa: E402
+from parse_script import parse_script, read_script_text  # noqa: E402
 
 
 # ---------- 设备类型 → 端口分类规则 ----------
@@ -79,6 +79,8 @@ ISO_ORDER: Dict[str, List[str]] = {
 REC_ORDER: Dict[str, List[str]] = {
     "DCGW": ["互联", "上行", "下行"],
 }
+
+VALID_SCRIPT_OPS: Set[str] = {"shutdown", "undo_shutdown"}
 
 
 # ---------- 防火墙主备识别（v5） ----------
@@ -811,11 +813,14 @@ def audit_order(
                 "未配对防火墙（需人工确认主备关系）：" + "、".join(unpaired_firewalls)
             )
         return findings
+    valid_ops = [op for op in ops if op.op in VALID_SCRIPT_OPS]
+    if not valid_ops:
+        findings.append("脚本中未识别到任何有效的 shutdown/undo shutdown 操作，请人工复核脚本是否完整。")
 
     # 翻译为大类序列 + fw_role 序列 + fw_type 序列
     # v5：fw_type 用于「按类型分组」的主备子顺序检查。
     actual_seq: List[Tuple[int, str, str, Optional[str], Optional[str]]] = []  # (line_no, iface, cat, role, ftype)
-    for op in ops:
+    for op in valid_ops:
         cat = _op_to_category(op.iface, port_table, trunks)
         role = _op_to_fw_role(op.iface, port_table, trunks)
         ftype = _op_to_fw_type(op.iface, port_table, trunks) if role else None
@@ -973,7 +978,7 @@ def audit_order(
     seen_trunks: Set[str] = set()  # 存的 key 是 _trunk_id
     seen_phys: Set[str] = set()
     phys_to_trunk = trunks.phys_to_trunk()
-    for op in ops:
+    for op in valid_ops:
         # 只有「看起来是聚合口」的名字才走 trunk-ID 去重
         is_trunk = _is_trunk_name(op.iface)
         trunk_match: Optional[str] = None
@@ -1019,7 +1024,7 @@ def audit_order(
     #    v4：仍按 p.category 判定（subcategory 已移除），主备子分类不参与覆盖判定
     expected_ports = [p for p in port_table if p.category in expected_order]
     covered: Set[str] = set()
-    for op in ops:
+    for op in valid_ops:
         canon = _canon_iface(op.iface).lower()
         # 优先按 ID 匹配聚合口
         tid = _trunk_id(op.iface)
@@ -1044,8 +1049,29 @@ def audit_order(
     return findings
 
 
+def audit_operation_direction(ops: List[ScriptOp], expected_op: str, label: str) -> List[str]:
+    """检查隔离/恢复脚本中的动作语义是否正确。"""
+    findings: List[str] = []
+    invalid = [op for op in ops if op.op.startswith("invalid_")]
+    if invalid:
+        details = "、".join(f"行 {op.line_no}({op.iface}: {op.raw})" for op in invalid)
+        findings.append(
+            f"{label}脚本存在严重命令拼写错误：{details}。这些命令不会被视为有效端口操作。"
+        )
+
+    wrong = [op for op in ops if op.op in VALID_SCRIPT_OPS and op.op != expected_op]
+    expected_text = "shutdown" if expected_op == "shutdown" else "undo shutdown"
+    if wrong:
+        details = "、".join(f"行 {op.line_no}({op.iface}: {op.raw})" for op in wrong)
+        findings.append(
+            f"{label}脚本操作类型异常：期望使用 {expected_text}，但 {details} 不符合。"
+        )
+    return findings
+
+
 def _annotate_ops_legality(ops: List[ScriptOp], port_table: List[PortInfo],
-                           trunks: TrunkData, expected_order: List[str]) -> List[Tuple[ScriptOp, str, str, str]]:
+                           trunks: TrunkData, expected_order: List[str],
+                           expected_op: Optional[str] = None) -> List[Tuple[ScriptOp, str, str, str]]:
     """为每条 op 给出 (op, 期望分类, 实际分类, 合法性) 的元组列表。
 
     v4：使用 4 大类（上行 / 下行 / 互联 / 剩余）做顺序比对。
@@ -1058,7 +1084,14 @@ def _annotate_ops_legality(ops: List[ScriptOp], port_table: List[PortInfo],
     last_cat: Optional[str] = None
     for i, op in enumerate(ops):
         actual = _op_to_category(op.iface, port_table, trunks)
-        if actual in expected_order:
+        if op.op.startswith("invalid_"):
+            legality = f"严重异常：命令拼写错误（原始命令：{op.raw}），该行不计为有效端口操作"
+            expected_cat = actual if actual in expected_order or actual == "剩余" else "—"
+        elif expected_op is not None and op.op != expected_op:
+            expected_text = "shutdown" if expected_op == "shutdown" else "undo shutdown"
+            legality = f"严重异常：操作类型错误，期望 {expected_text}，实际为 {op.raw}"
+            expected_cat = actual if actual in expected_order or actual == "剩余" else "—"
+        elif actual in expected_order:
             cur_idx = expected_order.index(actual)
             # 期望顺序中的分类。last_idx 为 -1 表示还没遇到任何期望分类
             # 的接口，此时出现的分类是哪个，就以哪个为“起企”。
@@ -1155,7 +1188,9 @@ def render_markdown(r: AuditReport) -> str:
         out.append("| 序号 | 行号 | 接口 | 操作 | 期望分类 | 实际分类 | 合法性 |")
         out.append("| --- | --- | --- | --- | --- | --- | --- |")
         for i, (op, exp, act, leg) in enumerate(
-            _annotate_ops_legality(r.isolate_ops, r.port_table, r.trunks, r.isolate_expected_order), 1
+            _annotate_ops_legality(
+                r.isolate_ops, r.port_table, r.trunks, r.isolate_expected_order, "shutdown"
+            ), 1
         ):
             out.append(
                 "| " + " | ".join([
@@ -1186,7 +1221,9 @@ def render_markdown(r: AuditReport) -> str:
         out.append("| 序号 | 行号 | 接口 | 操作 | 期望分类 | 实际分类 | 合法性 |")
         out.append("| --- | --- | --- | --- | --- | --- | --- |")
         for i, (op, exp, act, leg) in enumerate(
-            _annotate_ops_legality(r.recover_ops, r.port_table, r.trunks, r.recover_expected_order), 1
+            _annotate_ops_legality(
+                r.recover_ops, r.port_table, r.trunks, r.recover_expected_order, "undo_shutdown"
+            ), 1
         ):
             out.append(
                 "| " + " | ".join([
@@ -1237,8 +1274,12 @@ def main(argv: Iterable[str] | None = None) -> int:
     dev_type = args.device_type.strip() or detect_device_type(args.device_name)
     lldp_text = Path(args.lldp).read_text(encoding="utf-8", errors="replace")
     trunks_text = Path(args.trunks).read_text(encoding="utf-8", errors="replace")
-    iso_text = Path(args.isolate_script).read_text(encoding="utf-8", errors="replace")
-    rec_text = Path(args.recover_script).read_text(encoding="utf-8", errors="replace")
+    iso_text = read_script_text(
+        args.isolate_script, preferred_sheet="隔离脚本", device_name=args.device_name
+    )
+    rec_text = read_script_text(
+        args.recover_script, preferred_sheet="恢复脚本", device_name=args.device_name
+    )
 
     lldp = [LLDPEntry.from_dict(r) for r in parse_lldp(lldp_text, args.vendor)]
     trunks = TrunkData.from_dict(parse_trunks(trunks_text, args.vendor))
@@ -1288,14 +1329,16 @@ def main(argv: Iterable[str] | None = None) -> int:
     iso_ops = [ScriptOp.from_dict(d) for d in parse_script(iso_text, args.vendor)]
     rec_ops = [ScriptOp.from_dict(d) for d in parse_script(rec_text, args.vendor)]
 
-    iso_findings = audit_order(
+    iso_findings = audit_operation_direction(iso_ops, "shutdown", "隔离")
+    iso_findings.extend(audit_order(
         iso_ops, port_table, trunks, expected_iso,
         unpaired_firewalls=unpaired, direction="isolate",
-    )
-    rec_findings = audit_order(
+    ))
+    rec_findings = audit_operation_direction(rec_ops, "undo_shutdown", "恢复")
+    rec_findings.extend(audit_order(
         rec_ops, port_table, trunks, expected_rec,
         unpaired_firewalls=unpaired, direction="recover",
-    )
+    ))
 
     overall = "通过"
     if iso_findings or rec_findings:

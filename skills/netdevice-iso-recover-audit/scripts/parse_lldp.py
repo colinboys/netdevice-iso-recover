@@ -3,8 +3,9 @@
 
 支持的厂家：
   - huawei（默认；VRP V800，display lldp neighbor brief）
+  - h3c（Comware V7，display lldp neighbor-information list）
 
-中兴、华三、锐捷为占位，需要时再扩展。
+中兴、锐捷为占位，需要时再扩展。
 
 输出：JSON 数组，每个元素包含
   {
@@ -153,7 +154,7 @@ def parse_neighbor_information_list(text: str) -> List[Dict[str, Any]]:
 
 def parse_lldp(text: str, vendor: str) -> List[Dict[str, Any]]:
     vendor = vendor.lower()
-    if vendor == "huawei":
+    if vendor in ("huawei", "h3c"):
         return parse_huawei(text)
     raise NotImplementedError(
         f"厂商 {vendor!r} 的 LLDP 解析尚未实现，请先在 references/parser-{vendor}.md 补充样例。"

@@ -73,21 +73,21 @@
 
 | 序号 | 行号 | 接口 | 操作 | 期望分类 | 实际分类 | 合法性 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 3 | `Route-Aggregation3` | undo_shutdown | 上行 | 上行 | 严重异常：操作类型错误，期望 shutdown，实际为 undo shutdown |
-| 2 | 6 | `Route-Aggregation6` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：co_shutdown），该行不计为有效端口操作 |
-| 3 | 9 | `Route-Aggregation5` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
-| 4 | 12 | `Route-Aggregation152` | shutdown | 上行 | 上行 | 通过 |
-| 5 | 15 | `Route-Aggregation151` | shutdown | 上行 | 上行 | 通过 |
-| 6 | 18 | `Route-Aggregation192` | shutdown | 下行 | 下行 | 通过 |
-| 7 | 21 | `Route-Aggregation191` | shutdown | 下行 | 下行 | 通过 |
-| 8 | 25 | `Route-Aggregation11` | shutdown | 下行 | 下行 | 通过 |
-| 9 | 29 | `Route-Aggregation1` | shutdown | 互联 | 互联 | 通过 |
-| 10 | 32 | `Route-Aggregation2` | shutdown | 互联 | 互联 | 通过 |
+| 1 | 4 | `Route-Aggregation3` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 2 | 7 | `Route-Aggregation6` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 3 | 10 | `Route-Aggregation5` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 4 | 13 | `Route-Aggregation152` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 5 | 16 | `Route-Aggregation151` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 6 | 19 | `Route-Aggregation192` | invalid_shutdown_typo | 下行 | 下行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 7 | 22 | `Route-Aggregation191` | invalid_shutdown_typo | 下行 | 下行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 8 | 26 | `Route-Aggregation11` | shutdown | 下行 | 下行 | 异常：期望起始分类 上行，但首条 op 为 下行（顺序 2/3） |
+| 9 | 30 | `Route-Aggregation1` | invalid_shutdown_typo | 互联 | 互联 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 10 | 33 | `Route-Aggregation2` | invalid_shutdown_typo | 互联 | 互联 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
 
 **发现项**：
-- 隔离脚本存在严重命令拼写错误：行 6(Route-Aggregation6: co_shutdown)、行 9(Route-Aggregation5: shutdwon)。这些命令不会被视为有效端口操作。
-- 隔离脚本操作类型异常：期望使用 shutdown，但 行 3(Route-Aggregation3: undo shutdown) 不符合。
-- 缺少以下应操作的端口（不在脚本内）：XGE6/2/2(上行)、XGE6/2/3(上行)、XGE6/2/4(上行)、XGE6/2/5(上行)、XGE6/2/6(上行)、XGE6/2/7(上行)、XGE7/2/2(上行)、XGE7/2/3(上行)、XGE7/2/4(上行)、XGE7/2/5(上行)、XGE6/1/20(下行)、XGE6/2/16(下行)、XGE6/2/17(下行)、XGE6/2/18(下行)、XGE6/2/19(下行)、XGE6/2/20(下行)、XGE7/2/14(下行)、XGE7/2/15(下行)、XGE7/2/16(下行)、XGE7/2/17(下行)、XGE7/2/18(下行)、XGE7/2/19(下行)
+- 隔离脚本存在严重命令拼写错误：行 4(Route-Aggregation3: shutdwon)、行 7(Route-Aggregation6: shutdwon)、行 10(Route-Aggregation5: shutdwon)、行 13(Route-Aggregation152: shutdwon)、行 16(Route-Aggregation151: shutdwon)、行 19(Route-Aggregation192: shutdwon)、行 22(Route-Aggregation191: shutdwon)、行 30(Route-Aggregation1: shutdwon)、行 33(Route-Aggregation2: shutdwon)。这些命令不会被视为有效端口操作。
+- 顺序异常：脚本起始分类为 下行，但期望从 上行 开始，期望顺序：上行→下行→互联。
+- 缺少以下应操作的端口（不在脚本内）：HGE2/0/2(上行)、HGE2/0/5(上行)、HGE3/0/2(上行)、HGE3/0/5(上行)、HGE4/0/4(上行)、HGE5/0/4(上行)、XGE6/2/2(上行)、XGE6/2/3(上行)、XGE6/2/4(上行)、XGE6/2/5(上行)、XGE6/2/6(上行)、XGE6/2/7(上行)、XGE7/2/2(上行)、XGE7/2/3(上行)、XGE7/2/4(上行)、XGE7/2/5(上行)、XGE6/1/20(下行)、XGE6/2/10(下行)、XGE6/2/11(下行)、XGE6/2/12(下行)、XGE6/2/13(下行)、XGE6/2/14(下行)、XGE6/2/15(下行)、XGE6/2/16(下行)、XGE6/2/17(下行)、XGE6/2/18(下行)、XGE6/2/19(下行)、XGE6/2/20(下行)、XGE7/2/10(下行)、XGE7/2/11(下行)、XGE7/2/12(下行)、XGE7/2/13(下行)、XGE7/2/14(下行)、XGE7/2/15(下行)、XGE7/2/16(下行)、XGE7/2/17(下行)、XGE7/2/18(下行)、XGE7/2/19(下行)、XGE7/2/8(下行)、XGE7/2/9(下行)、HGE2/0/1(互联)、HGE3/0/1(互联)、HGE4/0/1(互联)、HGE5/0/1(互联)、XGE6/2/1(互联)、XGE7/2/1(互联)
 
 ## 三、恢复脚本稽核
 
@@ -95,20 +95,22 @@
 
 | 序号 | 行号 | 接口 | 操作 | 期望分类 | 实际分类 | 合法性 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 3 | `Route-Aggregation1` | invalid_undo_shutdown_typo | 互联 | 互联 | 严重异常：命令拼写错误（原始命令：unCdo shutdown），该行不计为有效端口操作 |
-| 2 | 6 | `Route-Aggregation2` | undo_shutdown | 互联 | 互联 | 通过 |
-| 3 | 11 | `Route-Aggregation3` | undo_shutdown | 上行 | 上行 | 通过 |
-| 4 | 14 | `Route-Aggregation5` | undo_shutdown | 上行 | 上行 | 通过 |
-| 5 | 17 | `Route-Aggregation6` | undo_shutdown | 上行 | 上行 | 通过 |
-| 6 | 20 | `Route-Aggregation151` | undo_shutdown | 上行 | 上行 | 通过 |
-| 7 | 23 | `Route-Aggregation152` | undo_shutdown | 上行 | 上行 | 通过 |
-| 8 | 26 | `Route-Aggregation191` | undo_shutdown | 下行 | 下行 | 通过 |
-| 9 | 29 | `Route-Aggregation192` | undo_shutdown | 下行 | 下行 | 通过 |
-| 10 | 33 | `Route-Aggregation11` | undo_shutdown | 下行 | 下行 | 通过 |
+| 1 | 4 | `Route-Aggregation1` | invalid_shutdown_typo | 互联 | 互联 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 2 | 7 | `Route-Aggregation2` | invalid_shutdown_typo | 互联 | 互联 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 3 | 12 | `Route-Aggregation3` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 4 | 15 | `Route-Aggregation5` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 5 | 18 | `Route-Aggregation6` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 6 | 21 | `Route-Aggregation151` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 7 | 24 | `Route-Aggregation152` | invalid_shutdown_typo | 上行 | 上行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 8 | 27 | `Route-Aggregation191` | invalid_shutdown_typo | 下行 | 下行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 9 | 30 | `Route-Aggregation192` | invalid_shutdown_typo | 下行 | 下行 | 严重异常：命令拼写错误（原始命令：shutdwon），该行不计为有效端口操作 |
+| 10 | 34 | `Route-Aggregation11` | shutdown | 下行 | 下行 | 异常：期望起始分类 互联，但首条 op 为 下行（顺序 3/3） |
 
 **发现项**：
-- 恢复脚本存在严重命令拼写错误：行 3(Route-Aggregation1: unCdo shutdown)。这些命令不会被视为有效端口操作。
-- 缺少以下应操作的端口（不在脚本内）：XGE6/1/20(下行)、XGE6/2/16(下行)、XGE6/2/17(下行)、XGE6/2/18(下行)、XGE6/2/19(下行)、XGE6/2/20(下行)、XGE7/2/14(下行)、XGE7/2/15(下行)、XGE7/2/16(下行)、XGE7/2/17(下行)、XGE7/2/18(下行)、XGE7/2/19(下行)、HGE2/0/1(互联)、HGE3/0/1(互联)、HGE4/0/1(互联)、HGE5/0/1(互联)
+- 恢复脚本存在严重命令拼写错误：行 4(Route-Aggregation1: shutdwon)、行 7(Route-Aggregation2: shutdwon)、行 12(Route-Aggregation3: shutdwon)、行 15(Route-Aggregation5: shutdwon)、行 18(Route-Aggregation6: shutdwon)、行 21(Route-Aggregation151: shutdwon)、行 24(Route-Aggregation152: shutdwon)、行 27(Route-Aggregation191: shutdwon)、行 30(Route-Aggregation192: shutdwon)。这些命令不会被视为有效端口操作。
+- 恢复脚本操作类型异常：期望使用 undo shutdown，但 行 34(Route-Aggregation11: shutdown) 不符合。
+- 顺序异常：脚本起始分类为 下行，但期望从 互联 开始，期望顺序：互联→上行→下行。
+- 缺少以下应操作的端口（不在脚本内）：HGE2/0/2(上行)、HGE2/0/5(上行)、HGE3/0/2(上行)、HGE3/0/5(上行)、HGE4/0/4(上行)、HGE5/0/4(上行)、XGE6/2/2(上行)、XGE6/2/3(上行)、XGE6/2/4(上行)、XGE6/2/5(上行)、XGE6/2/6(上行)、XGE6/2/7(上行)、XGE7/2/2(上行)、XGE7/2/3(上行)、XGE7/2/4(上行)、XGE7/2/5(上行)、XGE6/1/20(下行)、XGE6/2/10(下行)、XGE6/2/11(下行)、XGE6/2/12(下行)、XGE6/2/13(下行)、XGE6/2/14(下行)、XGE6/2/15(下行)、XGE6/2/16(下行)、XGE6/2/17(下行)、XGE6/2/18(下行)、XGE6/2/19(下行)、XGE6/2/20(下行)、XGE7/2/10(下行)、XGE7/2/11(下行)、XGE7/2/12(下行)、XGE7/2/13(下行)、XGE7/2/14(下行)、XGE7/2/15(下行)、XGE7/2/16(下行)、XGE7/2/17(下行)、XGE7/2/18(下行)、XGE7/2/19(下行)、XGE7/2/8(下行)、XGE7/2/9(下行)、HGE2/0/1(互联)、HGE3/0/1(互联)、HGE4/0/1(互联)、HGE5/0/1(互联)、XGE6/2/1(互联)、XGE7/2/1(互联)
 
 ## 四、整体结论
 

@@ -1,81 +1,34 @@
-system-view
-interface Eth-trunk 1
-undo shutdown
-commit
-#
-
-interface Eth-trunk 2
-undo shutdown
-#
-interface Eth-trunk 3
-undo shutdown
-#
-interface Eth-trunk 4
-undo shutdown
-#
-interface Eth-trunk 7
-undo shutdown
-#
-interface Eth-trunk 16
-undo shutdown
-#
-
-interface Eth-trunk 151
-undo shutdown
-#
-
-interface Eth-trunk 152
-undo shutdown
-#
-interface GigabitEthernet4/0/5
-undo shutdown
-#
-commit
-interface Eth-trunk 5
-undo shutdown
-#
-commit
-
-interface Eth-trunk 6
-undo shutdown
-#
-interface Eth-trunk 20
-undo shutdown
-#
-commit
-
-interface Eth-trunk 21
-undo shutdown
-#
-commit
-interface 50|100GE1/0/4
-undo shutdown
-#
-interface 50|100GE1/0/6
-undo shutdown
-#
-
-interface 50|100GE1/1/4
-undo shutdown
-#
-interface 50|100GE1/1/6
-undo shutdown
-#
-interface 50|100GE2/0/4
-undo shutdown
-#
-interface 50|100GE2/0/6
-undo shutdown
-#
-interface 50|100GE2/1/4
-undo shutdown
-#
-interface 50|100GE2/1/6
-undo shutdown
-#
-commit
+# 打开互联端口
+interface Route-Aggregation1
+unCdo shutdown
 quit
-save
-y
-
-
+interfaceRoute-Aggregation2
+undo shutdown
+quit
+save              
+# 打开上行端口
+interfaceRoute-Aggregation3
+undo shutdown
+quit
+interface Route-Aggregation5
+undo shutdown
+quit
+interface Route-Aggregation6     
+undo shutdown
+quit
+interface Route-Aggregation151
+undo shutdown
+quit
+interface Route-Aggregation152
+undo shutdown
+quit
+interface Route-Aggregation191
+undo shutdown
+quit
+interface Route-Aggregation192
+undo shutdown
+quit
+# 打开下行端口
+interface Route-Aggregation11
+undo shutdown
+quit
